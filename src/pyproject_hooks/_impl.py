@@ -119,6 +119,9 @@ def norm_and_check(source_tree: str, requested: str) -> str:
     norm_requested = os.path.normcase(abs_requested)
     if os.path.commonprefix([norm_source, norm_requested]) != norm_source:
         raise ValueError("paths must be inside source tree")
+    if ":" in abs_requested:
+        raise ValueError(("build path must not contain double colons"
+                          "because path handling is currently fragile."))
 
     return abs_requested
 
